@@ -30,7 +30,7 @@ export function Header({ cart }) {
       const keyPressed = event.key
 
       if (keyPressed === 'Enter') {
-         searchProduct()
+         searchProduct() 
       }
    }
 
