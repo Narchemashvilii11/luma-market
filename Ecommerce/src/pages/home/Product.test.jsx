@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import axios from "axios";
 import { Product } from "./Product";
+import React from "react";
 
 vi.mock('axios')
 
