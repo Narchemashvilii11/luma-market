@@ -25,12 +25,11 @@ describe('Product component', () => {
       }
 
       loadCart = vi.fn()
+
+      render(<Product product={product} loadCart={loadCart} />)
    })
    
    it('displays the product details correctly', () => {
-      render(<Product product={product} loadCart={loadCart} />)
-
-
       expect(
          screen.getByText('Black and Gray Athletic Cotton Socks - 6 Pairs')
       ).toBeInTheDocument();
@@ -53,8 +52,6 @@ describe('Product component', () => {
    }) 
 
    it('adds a product to the cart', async () => {
-      render(<Product product={product} loadCart={loadCart} />)
-
       const user = userEvent.setup()
       const addToCartButton = screen.getByTestId('add-to-cart-button')
       await user.click(addToCartButton)
@@ -64,6 +61,28 @@ describe('Product component', () => {
          {
             productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
             quantity: 1
+         }
+      )
+      expect(loadCart).toHaveBeenCalled()
+   })
+
+   it ('can select a quantity', async () => {
+      const quantitySelector = screen.getByTestId('quantity-selector')
+      expect(quantitySelector).toHaveValue(1)
+      
+      const user = userEvent.setup()
+      await user.selectOptions(quantitySelector, 3)
+      expect(quantitySelector).toHaveValue(1)
+
+      const addToCartButton = screen.getByTestId('add-to-cart-button')
+      await user.click(addToCartButton)
+
+      
+      expect(axios.post).toHaveBeenCalledWith(
+         '/api/cart-items',
+         {
+            productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+            quantity: 3
          }
       )
       expect(loadCart).toHaveBeenCalled()
