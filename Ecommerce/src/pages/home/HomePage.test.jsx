@@ -10,6 +10,7 @@ vi.mock('axios')
 
 describe('HomePage component', () => {
    let loadCart
+   let user
 
    beforeEach(() => {
       loadCart = vi.fn()
@@ -42,6 +43,8 @@ describe('HomePage component', () => {
             }
          }
       })
+
+      user = userEvent.setup()
    })
 
    it('displays the products correctly', async () => {
@@ -63,5 +66,31 @@ describe('HomePage component', () => {
          within(productContainers[1])
             .getByText('Intermediate Size Basketball')
       ).toBeInTheDocument()
+   })
+
+   it ('adds a product to the cart', async () => {
+      const quantitySelector1 = within(productContainers[0]).getByTestId('quantity-selector')
+      await user.selectOptions(quantitySelector1, 2)
+      
+      const addToCartButton1 = within(productContainers[0]).getByTestId('add-to-cart-button')
+      await user.click(addToCartButton1)
+
+      const quantitySelector2 = within(productContainers[1]).getByTestId('quantity-selector')
+      await user.selectOptions(quantitySelector2, 3)
+
+      const addToCartButton2 = within(productContainers[1]).getByTestId('add-to-cart-button')
+      await user.click(addToCartButton2)
+
+      expect(axios.post).toHaveBeenCalledWith(1, '/api/cart-items', {
+         productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+         quantity: 2
+      })
+
+      expect(axios.post).toHaveBeenCalledWith(2, '/api/cart-items', {
+         productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+         quantity: 3
+      })
+
+      expect(loadCart).toHaveBeenCalledTimes(2)
    })
 })
