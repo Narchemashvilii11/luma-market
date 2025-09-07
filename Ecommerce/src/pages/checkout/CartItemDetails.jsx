@@ -58,10 +58,12 @@ export function CartItemDetails({ cartItem, loadCart }) {
                      type="text" className="quantity-input" value={quantity}
                      onChange={updateQuantityInput}
                      onKeyDown={handleQuantityInputKeyDown}
+                     data-testid="quantity-input"
                   /> : <span className="quantity-label">{cartItem.quantity}</span>}  
                </span>
                <span className="update-quantity-link link-primary"
-                  onClick={updateQuantity}>
+                  onClick={updateQuantity}
+                  data-testid="update-quantity-button">
                   Update
                </span>
                <span className="delete-quantity-link link-primary"

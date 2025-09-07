@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
-import { Helmet } from 'react-helmet-async'
 import { Header } from '../../components/Header'
 import { ProductsGrid } from './ProductsGrid'
 import './HomePage.css'
@@ -23,10 +22,8 @@ export function HomePage({ cart, loadCart }) {
 
    return (
       <>
-         <Helmet>
-            <title>Ecommerce Project</title>
-            <link rel="icon" type="image/svg+xml" href="images/home-favicon.png" />
-         </Helmet>
+         <title>Ecommerce Project</title>
+         <link rel="icon" type="image/svg+xml" href="images/home-favicon.png" />
 
          <Header cart={cart} />
          
