@@ -50,7 +50,7 @@ describe('DeliveryOptions component', () => {
       user = userEvent.setup()
    })
 
-   it ('updates delivery option', () => {
+   it ('updates delivery option', async () => {
       render(
          <DeliveryOptions 
             cartItem={cartItem}
@@ -61,7 +61,7 @@ describe('DeliveryOptions component', () => {
 
       const deliveryOptions = screen.getAllByTestId('delivery-option')
 
-      user.click(deliveryOptions[1])
+      await user.click(deliveryOptions[1])
 
       expect(axios.put).toHaveBeenCalledWith('/api/cart-items/e43638ce-6aa0-4b85-b27f-e1d07eb678c6', {
          deliveryOptionId: "2" 
