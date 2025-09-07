@@ -26,6 +26,7 @@ export function DeliveryOptions({ cartItem,deliveryOptions, loadCart }) {
                <div 
                   key={deliveryOption.id} className="delivery-option"
                   onClick={updateDeliveryOption}
+                  data-testid="delivery-option"
                >
                   <input
                      type="radio"
