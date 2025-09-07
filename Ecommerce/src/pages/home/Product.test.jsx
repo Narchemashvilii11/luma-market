@@ -72,7 +72,7 @@ describe('Product component', () => {
       
       const user = userEvent.setup()
       await user.selectOptions(quantitySelector, 3)
-      expect(quantitySelector).toHaveValue(1)
+      expect(quantitySelector).toHaveValue(3)
 
       const addToCartButton = screen.getByTestId('add-to-cart-button')
       await user.click(addToCartButton)
