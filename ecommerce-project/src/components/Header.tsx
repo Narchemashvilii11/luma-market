@@ -6,7 +6,15 @@ import MobileLogoWhite from '../assets/images/mobile-logo-white.png'
 import SearchIcon from  '../assets/images/icons/search-icon.png'
 import CartIcon from '../assets/images/icons/cart-icon.png'
 
-export function Header({ cart }) {
+type HeaderProps = {
+   cart: {
+      productId: string;
+      quantity: number;
+      deliveryOptionId: string;
+   }[]
+}
+
+export function Header({ cart }: HeaderProps) {
    const navigate = useNavigate()
    const [searchParams] = useSearchParams()
    const searchText = searchParams.get('search')
@@ -18,7 +26,7 @@ export function Header({ cart }) {
       totalQuantity += cartItem.quantity
    })
 
-   const updateSearch = (event) => {
+   const updateSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(event.target.value)
    }
 
@@ -26,7 +34,7 @@ export function Header({ cart }) {
       navigate(`/?search=${search}`)
    }
 
-   const handleSearchBarKeyDown = (event) => {
+   const handleSearchBarKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
       const keyPressed = event.key
 
       if (keyPressed === 'Enter') {
