@@ -1,0 +1,271 @@
+
+.tracking-page {
+  max-width: 1000px;
+  margin: 125px auto 100px;
+  padding: 0 30px;
+  color: #24143d;
+}
+
+.tracking-page .tracking-page-heading {
+  margin-bottom: 35px;
+}
+
+.tracking-page .tracking-page-label {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #8529ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.tracking-page .page-title {
+  margin: 0 0 12px;
+  color: #24143d;
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.tracking-page .tracking-page-description {
+  max-width: 650px;
+  margin: 0;
+  color: #8b7d9e;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.tracking-page .order-tracking {
+  width: 100%;
+}
+
+.tracking-page .back-to-orders-link {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 25px;
+  color: #8529ff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.tracking-page .back-to-orders-link:hover {
+  color: #6420b8;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.tracking-page .tracking-product-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 35px;
+  margin-bottom: 25px;
+  background-color: #ffffff;
+  border: 1px solid #eee5fc;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(91, 45, 151, 0.07);
+}
+
+.tracking-page .tracking-product-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.tracking-page .delivery-date {
+  margin: 0 0 20px;
+  color: #6420b8;
+  font-size: clamp(20px, 2.5vw, 27px);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.tracking-page .product-info {
+  margin-bottom: 10px;
+  color: #35204f;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.tracking-page .tracking-product-details .product-info:nth-of-type(2) {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.tracking-page .tracking-product-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  padding: 20px;
+  background-color: #faf8ff;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.tracking-page .product-image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  object-fit: contain;
+}
+
+.tracking-page .tracking-progress-card {
+  padding: 35px;
+  background-color: #ffffff;
+  border: 1px solid #eee5fc;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(91, 45, 151, 0.07);
+}
+
+.tracking-page .tracking-progress-title {
+  margin: 0 0 30px;
+  color: #24143d;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.tracking-page .progress-labels-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.tracking-page .progress-label {
+  color: #9a8cac;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.tracking-page .progress-label.current-status {
+  color: #8529ff;
+  font-weight: 800;
+}
+
+.tracking-page .progress-bar-container {
+  width: 100%;
+  height: 20px;
+  overflow: hidden;
+  background-color: #f0e6ff;
+  border: 1px solid #e5d4ff;
+  border-radius: 50px;
+  box-sizing: border-box;
+}
+
+.tracking-page .progress-bar {
+  height: 100%;
+  max-width: 100%;
+  background: linear-gradient(90deg, #6420d8, #8529ff, #b477ff);
+  border-radius: 50px;
+  transition: width 0.5s ease;
+}
+
+@media (max-width: 800px) {
+  .tracking-page {
+    padding: 0 20px;
+  }
+
+  .tracking-page .tracking-product-card {
+    padding: 25px;
+    gap: 20px;
+  }
+
+  .tracking-page .tracking-product-image-container {
+    width: 160px;
+    height: 160px;
+  }
+
+  .tracking-page .tracking-progress-card {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 675px) {
+  .tracking-page {
+    margin-top: 105px;
+    margin-bottom: 65px;
+  }
+
+  .tracking-page .tracking-page-heading {
+    margin-bottom: 25px;
+  }
+
+  .tracking-page .page-title {
+    font-size: 28px;
+  }
+
+  .tracking-page .tracking-page-description {
+    font-size: 14px;
+  }
+
+  .tracking-page .tracking-product-card {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    padding: 22px;
+    gap: 25px;
+  }
+
+  .tracking-page .tracking-product-image-container {
+    width: 100%;
+    height: 200px;
+  }
+
+  .tracking-page .tracking-progress-card {
+    padding: 22px;
+  }
+
+  .tracking-page .progress-label {
+    font-size: 14px;
+  }
+
+  .tracking-page .delivery-date {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 450px) {
+  .tracking-page {
+    padding: 0 12px;
+  }
+
+  .tracking-page .tracking-product-card,
+  .tracking-page .tracking-progress-card {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .tracking-page .tracking-product-image-container {
+    height: 170px;
+  }
+
+  .tracking-page .progress-labels-container {
+    gap: 5px;
+  }
+
+  .tracking-page .progress-label {
+    font-size: 12px;
+  }
+
+  .tracking-page .progress-bar-container {
+    height: 16px;
+  }
+
+  .tracking-page .tracking-progress-title {
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tracking-page .back-to-orders-link,
+  .tracking-page .progress-bar {
+    transition: none;
+  }
+}

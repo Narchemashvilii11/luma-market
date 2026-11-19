@@ -1,0 +1,25 @@
+
+.not-found-message {
+  min-height: calc(100vh - 150px);
+  margin: 110px auto 40px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #6420b8;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: -0.5px;
+}
+
+@media (max-width: 675px) {
+  .not-found-message {
+    min-height: calc(100vh - 110px);
+    margin-top: 80px;
+    padding: 25px 16px;
+    font-size: 24px;
+  }
+}
