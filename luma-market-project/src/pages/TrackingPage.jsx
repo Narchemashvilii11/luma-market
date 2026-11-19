@@ -1,51 +1,73 @@
-import { useParams } from "react-router";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useParams, Link } from "react-router";
 import { Header } from "../components/Header";
 import dayjs from "dayjs";
 import "./TrackingPage.css";
 
 export function TrackingPage({ cart }) {
   const { orderId, productId } = useParams();
-  const [order, setOrder] = useState(null);
 
-  useEffect(() => {
-    const fetchTrackingData = async () => {
-      const response = await axios.get(
-        `/api/orders/${orderId}?expand=products`,
-      );
-      setOrder(response.data);
-    };
+  let orders = [];
 
-    fetchTrackingData();
-  }, [orderId]);
+  try {
+    const savedOrders = JSON.parse(
+      localStorage.getItem("luma-market-orders") || "[]",
+    );
 
-  if (!order) {
-    return null;
+    if (Array.isArray(savedOrders)) {
+      orders = savedOrders;
+    }
+  } catch {
+    orders = [];
   }
 
-  const orderProduct = order.products.find((orderProduct) => {
-    return orderProduct.productId === productId;
-  });
+  const order = orders.find((savedOrder) => savedOrder.id === orderId);
+
+  const orderProduct = order?.products?.find(
+    (product) => product.productId === productId,
+  );
+
+  if (!order || !orderProduct) {
+    return (
+      <>
+        <title>Luma Market | Order Not Found</title>
+
+        <Header cart={cart} />
+
+        <main className="tracking-page">
+          <div className="tracking-page-heading">
+            <h1 className="page-title">Order not found</h1>
+
+            <p className="tracking-page-description">
+              We couldn't find tracking information for this order.
+            </p>
+
+            <Link to="/orders" className="back-to-orders-link link-primary">
+              View all orders
+            </Link>
+          </div>
+        </main>
+      </>
+    );
+  }
 
   const totalDeliveryTimeMs =
     orderProduct.estimatedDeliveryTimeMs - order.orderTimeMs;
 
-  const timePassedMs = dayjs().valueOf() - order.orderTimeMs;
+  const timePassedMs = Date.now() - order.orderTimeMs;
 
-  let deliveryPercent = (timePassedMs / totalDeliveryTimeMs) * 100;
-
-  if (deliveryPercent > 100) {
-    deliveryPercent = 100;
-  }
+  const deliveryPercent =
+    totalDeliveryTimeMs > 0
+      ? Math.max(0, Math.min(100, (timePassedMs / totalDeliveryTimeMs) * 100))
+      : 100;
 
   const isPreparing = deliveryPercent < 33;
   const isShipped = deliveryPercent >= 33 && deliveryPercent < 100;
-  const isDelivered = deliveryPercent === 100;
+  const isDelivered = deliveryPercent >= 100;
 
   return (
     <>
       <title>Luma Market | Track Your Order</title>
+
       <link rel="icon" type="image/png" href="/images/tracking-favicon.png" />
 
       <Header cart={cart} />
@@ -62,14 +84,14 @@ export function TrackingPage({ cart }) {
         </div>
 
         <div className="order-tracking">
-          <a className="back-to-orders-link link-primary" href="/orders">
+          <Link className="back-to-orders-link link-primary" to="/orders">
             ← View all orders
-          </a>
+          </Link>
 
           <div className="tracking-product-card">
             <div className="tracking-product-details">
               <div className="delivery-date">
-                {deliveryPercent >= 100 ? "Delivered on" : "Arriving on"}{" "}
+                {isDelivered ? "Delivered on" : "Arriving on"}{" "}
                 {dayjs(orderProduct.estimatedDeliveryTimeMs).format(
                   "dddd, MMMM D",
                 )}
@@ -96,19 +118,25 @@ export function TrackingPage({ cart }) {
 
             <div className="progress-labels-container">
               <div
-                className={`progress-label ${isPreparing && "current-status"}`}
+                className={`progress-label ${
+                  isPreparing ? "current-status" : ""
+                }`}
               >
                 Preparing
               </div>
 
               <div
-                className={`progress-label ${isShipped && "current-status"}`}
+                className={`progress-label ${
+                  isShipped ? "current-status" : ""
+                }`}
               >
                 Shipped
               </div>
 
               <div
-                className={`progress-label ${isDelivered && "current-status"}`}
+                className={`progress-label ${
+                  isDelivered ? "current-status" : ""
+                }`}
               >
                 Delivered
               </div>

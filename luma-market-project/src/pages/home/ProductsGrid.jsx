@@ -1,16 +1,11 @@
-import axios from "axios"
-import { useState } from "react"
-import { formatMoney } from "../../utils/money"
-import { Product } from "./Product"
+import { Product } from "./Product";
 
 export function ProductsGrid({ products, loadCart }) {
-   return (
-      <div className="products-grid">
-         {products.map((product) => {
-            return (
-               <Product key={product.id} product={product} loadCart={loadCart} />
-            )
-         })}
-      </div>
-   )
+  return (
+    <div className="products-grid">
+      {products.map((product) => (
+        <Product key={product.id} product={product} loadCart={loadCart} />
+      ))}
+    </div>
+  );
 }

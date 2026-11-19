@@ -1,34 +1,30 @@
 import { CheckoutHeader } from "./CheckoutHeader";
-import axios from "axios";
-import dayjs from "dayjs";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { OrderSummary } from "./OrderSummary";
 import { PaymentSummary } from "./PaymentSummary";
 import "./checkout-header.css";
 import "./CheckoutPage.css";
 
 export function CheckoutPage({ cart, loadCart }) {
-  const [deliveryOptions, setDeliveryOptions] = useState([]);
-  const [paymentSummary, setPaymentSummary] = useState(null);
+  const [deliveryOptions] = useState([
+    {
+      id: "1",
+      deliveryDays: 7,
+      priceCents: 0,
+    },
+    {
+      id: "2",
+      deliveryDays: 3,
+      priceCents: 499,
+    },
+    {
+      id: "3",
+      deliveryDays: 1,
+      priceCents: 999,
+    },
+  ]);
 
-  useEffect(() => {
-    const fetchCheckoutData = async () => {
-      const response = await axios.get(
-        "/api/delivery-options?expand=estimatedDeliveryTime",
-      );
-      setDeliveryOptions(response.data);
-    };
-    fetchCheckoutData();
-  }, []);
-
-  useEffect(() => {
-    const fetchCheckoutData = async () => {
-      const response = await axios.get("/api/payment-summary");
-      setPaymentSummary(response.data);
-    };
-
-    fetchCheckoutData();
-  }, [cart]);
+  const paymentSummary = null;
 
   return (
     <>

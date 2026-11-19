@@ -1,25 +1,24 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { Header } from "../../components/Header";
 import { ProductsGrid } from "./ProductsGrid";
+import { products } from "../../data/products";
 import "./HomePage.css";
 
 export function HomePage({ cart, loadCart }) {
-  const [products, setProducts] = useState([]);
   const [searchParams] = useSearchParams();
-  const search = searchParams.get("search");
+  const search = searchParams.get("search") || "";
 
-  useEffect(() => {
-    const getHomeData = async () => {
-      const urlPath = search
-        ? `/api/products/?search=${search}`
-        : "/api/products";
-      const response = await axios.get(urlPath);
-      setProducts(response.data);
-    };
+  const filteredProducts = useMemo(() => {
+    const query = search.trim().toLowerCase();
 
-    getHomeData();
+    if (!query) {
+      return products;
+    }
+
+    return products.filter((product) =>
+      product.name.toLowerCase().includes(query),
+    );
   }, [search]);
 
   return (
@@ -63,7 +62,7 @@ export function HomePage({ cart, loadCart }) {
             <p>Find your next favorite thing.</p>
           </div>
 
-          <ProductsGrid products={products} loadCart={loadCart} />
+          <ProductsGrid products={filteredProducts} loadCart={loadCart} />
         </section>
       </main>
     </>

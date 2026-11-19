@@ -3,11 +3,10 @@ import "./checkout-header.css";
 import CheckoutLockIcon from "../../assets/images/icons/checkout-lock-icon.png";
 
 export function CheckoutHeader({ cart }) {
-  let totalQuantity = 0;
-
-  cart.forEach((cartItem) => {
-    totalQuantity += cartItem.quantity;
-  });
+  const totalQuantity = cart.reduce(
+    (total, cartItem) => total + cartItem.quantity,
+    0,
+  );
 
   return (
     <div className="checkout-header">
@@ -29,7 +28,7 @@ export function CheckoutHeader({ cart }) {
         </div>
 
         <div className="checkout-header-right-section">
-          <img src={CheckoutLockIcon} alt="Secure checkout" />
+          <img src={CheckoutLockIcon} alt="Checkout" />
         </div>
       </div>
     </div>

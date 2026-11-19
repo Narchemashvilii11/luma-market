@@ -1,19 +1,39 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { Header } from "../../components/Header";
 import { OrdersGrid } from "./OrdersGrid";
 import "./OrdersPage.css";
 
 export function OrdersPage({ cart, loadCart }) {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(() => {
+    try {
+      const savedOrders = JSON.parse(
+        localStorage.getItem("luma-market-orders") || "[]",
+      );
+
+      return Array.isArray(savedOrders) ? savedOrders : [];
+    } catch {
+      return [];
+    }
+  });
 
   useEffect(() => {
-    const fetchOrdersData = async () => {
-      const response = await axios.get("/api/orders?expand=products");
-      setOrders(response.data);
+    const handleStorageChange = () => {
+      try {
+        const savedOrders = JSON.parse(
+          localStorage.getItem("luma-market-orders") || "[]",
+        );
+
+        setOrders(Array.isArray(savedOrders) ? savedOrders : []);
+      } catch {
+        setOrders([]);
+      }
     };
 
-    fetchOrdersData();
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   return (
